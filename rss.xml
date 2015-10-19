@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0"><channel><title>JáquerEspeis</title><link>http://www.jaquerespeis.org</link><description></description><atom:link type="application/rss+xml" rel="self" href="http://www.jaquerespeis.org/rss.xml"></atom:link><language>es</language><lastBuildDate>Mon, 19 Oct 2015 16:34:12 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>laferia.cr</title><link>http://www.jaquerespeis.org/posts/laferiacr/</link><dc:creator>JáquerEspeis</dc:creator><description>&lt;div&gt;&lt;h2&gt;Necesidad&lt;/h2&gt;
+&lt;p&gt;En este momento de la historia, en la mayoría de los casos el consumidor no conoce el origen de los productos. Con una plataforma que brinde la posibilidad de compartir información entre productores y consumidores, se pueden solucionar varios problemas que presenta esta cadena de consumo.&lt;/p&gt;
+&lt;h2&gt;Plataforma&lt;/h2&gt;
+&lt;p&gt;Una plataforma, diseñada para compartir información entre productores, proveedores y consumidores, fue creada en Australia por la fundación Open Food Network.&lt;/p&gt;
+&lt;p&gt;Esta plataforma permite conocer el origen de los productos, la situación del productor, métodos de producción y otros factores que pueden tener alto impacto en la decisión del consumidor de orientarse a un producto o a otro.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.youtube.com/watch?feature=player_embedded&amp;amp;v=q1S2DfuiEh4" target="_blank"&gt;&lt;img src="http://img.youtube.com/vi/q1S2DfuiEh4/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10"&gt;&lt;/a&gt; &lt;/p&gt;
+
+&lt;h2&gt;Avance&lt;/h2&gt;
+&lt;p&gt;Por el momento lo que hemos logrado:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Comprar el dominio&lt;/li&gt;
+&lt;li&gt;Configurar ofn en ubuntu 14.04&lt;/li&gt;
+&lt;li&gt;Necesitamos alguien con experiencia en ruby y rails para que revise&lt;/li&gt;
+&lt;li&gt;Tenemos un ambiente de pruebas&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://www.jaquerespeis.org/posts/laferiacr/</guid><pubDate>Sun, 11 Oct 2015 19:04:31 GMT</pubDate></item><item><title>Utilizar Nikola por primera vez</title><link>http://www.jaquerespeis.org/posts/postsutilizar-nikola/</link><dc:creator>JáquerEspeis</dc:creator><description>&lt;div&gt;&lt;h2&gt;Instalación&lt;/h2&gt;
+&lt;p&gt;La forma mas simple de instalar Nikola es con pip y virtual, también se podría utilizar uno de los paquetes de la distribución que se teste utilizando, en si son usuarios de Linux.&lt;/p&gt;
+&lt;p&gt;En el directorio del repositorio del sitio&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virtualenv --python=python3 .env
+source .env/bin/activate
+pip3 install --upgrade "Nikola[extras]"
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Primeros usos&lt;/h3&gt;
+&lt;p&gt;En este momento se tiene el sistema instalado, ahora hay que crear el contenido del primer sitio de prueba, estando en el directorio que va a mantener el código, se ejecuta el comando &lt;code&gt;nikola init --demo .&lt;/code&gt;, luego se debe de construir el sitio con el comando &lt;code&gt;nikola build&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;El siguiente paso es ver el sitio, para lo que va a utilizar el comando &lt;code&gt;nikola serve -b&lt;/code&gt;, pero es mucho mas fácil utilizar &lt;code&gt;nikola auto -b&lt;/code&gt; para reconstrucciones automáticas.&lt;/p&gt;
+&lt;h2&gt;Utilizar markdown&lt;/h2&gt;
+&lt;p&gt;Para utilizar markdown para crear los post se debe usar uno de los múltiples lenguajes de marcado ligero soportado, para eso se debe de editar el archivo config.py en la raíz del sitio en Nikola.&lt;/p&gt;
+&lt;p&gt;Primero se debe de verificar que este en la estructura &lt;strong&gt;COMPILERS&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;# 'rest' is reStructuredText
+# 'markdown' is MarkDown
+# 'html' assumes the file is HTML and just copies it
+COMPILERS = {
+    "rest": ('.rst', '.txt'),
+    "markdown": ('.md', '.mdown', '.markdown'),
+    "textile": ('.textile',),
+    "txt2tags": ('.t2t',),
+    "bbcode": ('.bb',),
+    #"wiki": ('.wiki',),
+    "ipynb": ('.ipynb',),
+    "html": ('.html', '.htm'),
+    # PHP files are rendered the usual way (i.e. with the full templates).
+    # The resulting files have .php extensions, making it possible to run
+    # them without reconfiguring your server to recognize them.
+    "php": ('.php',),
+    # Pandoc detects the input from the source filename
+    # but is disabled by default as it would conflict
+    # with many of the others.
+    # "pandoc": ('.rst', '.md', '.txt'),
+}
+&lt;/pre&gt;
+
+
+&lt;p&gt;Luego se debe de agregar a la estructura del tipo de entrada, en el ejemplo de abajo se agregó la linea, &lt;code&gt;("posts/*.md", "posts", "post.tmpl")&lt;/code&gt; a los dos tipos de entras &lt;strong&gt;POST&lt;/strong&gt; y &lt;strong&gt;PAGES&lt;/strong&gt;.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;POSTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"posts/*.rst"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"posts"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"post.tmpl"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"posts/*.txt"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"posts"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"post.tmpl"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"posts/*.md"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"posts"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"post.tmpl"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;PAGES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"stories/*.rst"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"stories"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"story.tmpl"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"stories/*.txt"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"stories"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"story.tmpl"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"stories/*.md"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"stories"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"story.tmpl"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h2&gt;Utilizar locales para Costa Rica&lt;/h2&gt;
+&lt;p&gt;Este proceso debería funcionar para la mayoría de idiomas.&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Generar el locale necesario con `locale-get &lt;locale&gt;&lt;/locale&gt;&lt;/li&gt;
+&lt;li&gt;Definir cual es el locale que debe de utilizar Nikola por defecto.&lt;/li&gt;
+&lt;/ol&gt;&lt;pre class="code literal-block"&gt;&lt;span class="c"&gt;# What is the default language?&lt;/span&gt;
+&lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"es"&lt;/span&gt;
+
+&lt;span class="c"&gt;# What other languages do you have?&lt;/span&gt;
+&lt;span class="c"&gt;# The format is {"translationcode" : "path/to/translation" }&lt;/span&gt;
+&lt;span class="c"&gt;# the path will be used as a prefix for the generated pages location&lt;/span&gt;
+&lt;span class="n"&gt;TRANSLATIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"es_CR"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="c"&gt;# Example for another language:&lt;/span&gt;
+    &lt;span class="c"&gt;# "es": "./es",&lt;/span&gt;
+    &lt;span class="s"&gt;"es"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"./"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"en"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"./en"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;ol&gt;&lt;li&gt;Definir el locale que se va a utilizar para &lt;code&gt;es&lt;/code&gt;, por defecto es &lt;code&gt;es_ES&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;LOCALES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;"es"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s"&gt;"es_CR.utf-8"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;El locale a utilizar puede ser probado, importando locale &lt;code&gt;import locale&lt;/code&gt; y llamando al locale necesario &lt;code&gt;locale.setlocale(locale.LC_ALL, 'es_CR.utf-8')&lt;/code&gt;&lt;/p&gt;&lt;/div&gt;</description><category>blog</category><category>jaquerespeis</category><category>markdown</category><category>nikola</category><category>python</category><guid>http://www.jaquerespeis.org/posts/postsutilizar-nikola/</guid><pubDate>Fri, 21 Aug 2015 11:08:00 GMT</pubDate></item><item><title>Conectarse a Snappy a través de la consola serial</title><link>http://www.jaquerespeis.org/posts/esblogconectarse-a-snappy-a-traves-de-la-consola-serial/</link><dc:creator>JáquerEspeis</dc:creator><description>&lt;p&gt;Estoy trabajando en &lt;a href="https://developer.ubuntu.com/en/snappy/"&gt;Snappy Ubuntu&lt;/a&gt; con un BeagleBone Black Rev C y un Raspberry Pi 2. Es posible conectarse a los dispositivos a través de la consola serial para monitorear errores durante el arranque y para controlar el sistema. Luego de mi primer cable quemado, decidí escribir las instrucciones para conectar los cables y así reducir la probabilidad de que mis dispositivos prendan fuego.&lt;/p&gt;
+&lt;p&gt;Lo primero, por supuesto, es &lt;a href="https://developer.ubuntu.com/en/snappy/start/"&gt;instalar snappy en la tarjeta SD&lt;/a&gt;. Luego, comprar uno de estos &lt;a href="http://www.adafruit.com/products/954"&gt;cables FTDI&lt;/a&gt; que convierten de USB a serial. Este cable se puede usar en ambos dispositivos porque tiene los conectores separados. El cable &lt;em&gt;negro&lt;/em&gt; es &lt;strong&gt;tierra&lt;/strong&gt; (GND), el cable &lt;em&gt;blanco&lt;/em&gt; es para &lt;strong&gt;recibir datos en el puerto USB&lt;/strong&gt;, el cable &lt;em&gt;verde&lt;/em&gt; es para &lt;strong&gt;transmitir datos desde el puerto USB&lt;/strong&gt; ye el cable &lt;em&gt;rojo&lt;/em&gt; es de &lt;strong&gt;corriente eléctrica de 5V&lt;/strong&gt;.&lt;/p&gt;
+&lt;h1 id="beaglebone-black"&gt;BeagleBone Black&lt;/h1&gt;
+&lt;p&gt;El &lt;a href="https://www.adafruit.com/product/1876"&gt;BeagleBone Black Rev C&lt;/a&gt; tiene 6 pines. Hay un punto blanco al lado del primer pin. Conecte el cable negro GND al primer pin, el cable verde al cuarto pin y el cable blanco al quinto pin. En el BeagleBone&lt;strong&gt;NUNCA conecte el cable rojo&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ia601501.us.archive.org/11/items/snappy-bbb/1-board-serial-pins-compress.jpg"&gt; &lt;img src="https://ia601501.us.archive.org/11/items/snappy-bbb/1-board-serial-pins-compress.jpg" alt="image"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ia601501.us.archive.org/11/items/snappy-bbb/2-1-serial_cables.jpg"&gt; &lt;img src="https://ia601501.us.archive.org/11/items/snappy-bbb/2-1-serial_cables.jpg" alt="image"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="raspberry-pi"&gt;Raspberry Pi&lt;/h1&gt;
+&lt;p&gt;El &lt;a href="https://www.adafruit.com/products/2358"&gt;Raspberry Pi 2 Model B&lt;/a&gt; tiene 40 pines. &lt;a href="http://www.pighixxx.com/test/2015/06/raspberry-pi-v2-mod-b-pinout/#prettyPhoto%5Bgallery1105%5D/0/"&gt;Aquí&lt;/a&gt; hay un bonito dibujo del pinout con los números y las funciones de los pines.&lt;/p&gt;
+&lt;p&gt;Conecte el cable negro GND al sexto pin, el cable blanco al octavo pin y el cable verde al décimo pin. De forma opcional puede darle corriente al Raspberry conectando el cable rojo al segundo pin, pero si hace esto NO conecte el cable de poder USB porque &lt;strong&gt;no es posible usar ambas fuentes de poder&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ia601502.us.archive.org/29/items/image20150609_054825862/6-pins-highlight.jpg"&gt; &lt;img src="https://ia601502.us.archive.org/29/items/image20150609_054825862/6-pins-highlight.jpg" alt="image"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ia601502.us.archive.org/29/items/image20150609_054825862/7-serial.jpg"&gt; &lt;img src="https://ia601502.us.archive.org/29/items/image20150609_054825862/7-serial.jpg" alt="image"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="consola-serial"&gt;Consola serial&lt;/h1&gt;
+&lt;p&gt;Instale screen:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  sudo apt-get install screen&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Conecte el otro extremo del cable a un puerto USB de su computadora y busque el nombre del dispositivo tty:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ls /dev/ttyUSB*&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Inicie la sesión de screen en la terminal serial, reemplazando &lt;code&gt;/dev/ttyUSB?&lt;/code&gt; con el número de su dispositivo.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  sudo screen {/dev/ttyUSB?} 115200&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por último, inserte la tarjeta SD y conecte el cable de poder de su dispositivo. Ahora podrá ver los mensajes de arranque en la termina, y al final snappy le permitirá inciar la sesión. El usuario predeterminado es &lt;em&gt;ubuntu&lt;/em&gt; y la contraseña predeterminada también es &lt;em&gt;ubuntu&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ia601501.us.archive.org/11/items/snappy-bbb/6-booted.png"&gt; &lt;img src="https://ia601501.us.archive.org/11/items/snappy-bbb/6-booted.png" alt="image"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Snappy tiene un servidor SSH preinstalado. Una vez que el arranque ha sido exitoso, se puede iniciar sesión a través de SSH, lo que nos da una mejor experiencia. Esta terminal serial se puede usar para obtener la dirección IP del dispositivo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ip addr show&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Y desde una terminal diferente, reemplazando &lt;code&gt;ip&lt;/code&gt; con la dirección IP del dispositivo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ssh ubuntu@{ip}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ahora estamos listos para empezar a jugar con snappy en el dispositivo. No se pierdan del &lt;a href="https://developer.ubuntu.com/en/snappy/tutorials/using-snappy/"&gt;tour&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Para salir de la consola serial, presione &lt;code&gt;CTRL+a&lt;/code&gt; y luego &lt;code&gt;k&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="más-información-sobre-los-cables-y-la-consola-serial"&gt;Más información sobre los cables y la consola serial&lt;/h2&gt;
+&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;a href="http://elinux.org/Beagleboard:BeagleBone_Black_Serial" class="uri"&gt;http://elinux.org/Beagleboard:BeagleBone_Black_Serial&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://learn.adafruit.com/adafruits-raspberry-pi-lesson-5-using-a-console-cable/connect-the-lead" class="uri"&gt;https://learn.adafruit.com/adafruits-raspberry-pi-lesson-5-using-a-console-cable/connect-the-lead&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="http://dave.cheney.net/2013/09/22/two-point-five-ways-to-access-the-serial-console-on-your-beaglebone-black" class="uri"&gt;http://dave.cheney.net/2013/09/22/two-point-five-ways-to-access-the-serial-console-on-your-beaglebone-black&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;div id="refs" class="references"&gt;
+
+&lt;/div&gt;</description><category>beaglebone</category><category>free software</category><category>raspberrypi</category><category>snappy</category><category>ubuntu</category><guid>http://www.jaquerespeis.org/posts/esblogconectarse-a-snappy-a-traves-de-la-consola-serial/</guid><pubDate>Fri, 03 Jul 2015 10:07:35 GMT</pubDate></item></channel></rss>
