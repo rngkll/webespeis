@@ -10,6 +10,10 @@ cache:
   directories:
     - $HOME/.cache/pip
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get -qq remove python-pygments
+
 addons:
   apt:
     packages:
@@ -26,4 +30,4 @@ script:
 
 after_success:
   - chmod 755 ./.push_gh_pages.sh
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && ./.push_gh_pages.sh
+  - test $TRAVIS_PULL_REQUEST == "true" && test $TRAVIS_BRANCH == "master"
