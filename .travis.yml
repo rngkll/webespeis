@@ -20,6 +20,10 @@ install:
   - pip install Nikola[extras]
   - nikola plugin -i import_feed
 
+before_script:
+  - locale-gen es_CR.utf-8
+  - update-locale
+
 script:
   - <feeds.list xargs -I % nikola import_feed --url=% -o .
   - nikola build
