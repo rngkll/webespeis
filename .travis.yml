@@ -21,7 +21,7 @@ addons:
       - language-pack-es
 
 install:
-  - pip install Nikola[extras]
+  - pip3 install --upgrade "Nikola[extras]"
   - nikola plugin -i import_feed
 
 script:
