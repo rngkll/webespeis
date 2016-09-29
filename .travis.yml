@@ -17,10 +17,11 @@ addons:
     packages:
       - libxml2-dev
       - libxslt1-dev
+      - language-pack-es
 
-before_install:
-  - sudo locale-gen es_CR.utf-8
-  - sudo update-locale
+# before_install:
+#   - sudo locale-gen es_CR.utf-8
+#   - sudo update-locale
 
 install:
   - pip install Nikola[extras]
