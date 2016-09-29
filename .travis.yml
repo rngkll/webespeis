@@ -18,13 +18,13 @@ addons:
       - libxml2-dev
       - libxslt1-dev
 
+before_install:
+  - sudo locale-gen es_CR.utf-8
+  - sudo update-locale
+
 install:
   - pip install Nikola[extras]
   - nikola plugin -i import_feed
-
-before_script:
-  - sudo locale-gen es_CR.utf-8
-  - sudo update-locale
 
 script:
   - <feeds.list xargs -I % nikola import_feed --url=% -o .
